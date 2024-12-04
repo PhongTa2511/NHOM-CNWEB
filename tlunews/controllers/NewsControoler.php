@@ -1,17 +1,26 @@
 <?php
-include 'models/News.php';
+require_once 'models/News.php';
 
 class NewsController {
     public function index() {
         $newsModel = new News();
-        $newsList = $newsModel->getAllNews();
-        include 'views/news/index.php';
+        $news = $newsModel->getAllNews();
+
+        // Hiển thị danh sách tin tức
+        require 'views/news/index.php';
     }
 
-    public function detail($id) {
+    public function detail() {
+        $id = $_GET['id'] ?? null;
+        if (!$id) {
+            die('ID không hợp lệ.');
+        }
+
         $newsModel = new News();
-        $newsDetail = $newsModel->getNewsById($id);
-        include 'views/news/detail.php';
+        $article = $newsModel->getNewsById($id);
+
+        // Hiển thị chi tiết bài viết
+        require 'views/home/index.php';
     }
 }
 ?>
