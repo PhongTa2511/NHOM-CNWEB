@@ -5,7 +5,7 @@ class User
 
     public function __construct()
     {
-        $this->conn = new mysqli('localhost', 'root', '', 'tlnews');
+        $this->conn = new mysqli('localhost', 'root', '', 'tlunews');
         if ($this->conn->connect_error) {
             die('Kết nối cơ sở dữ liệu thất bại: ' . $this->conn->connect_error);
         }
