@@ -1,5 +1,13 @@
+# Kích hoạt mod_rewrite
 RewriteEngine On
 
-# Chuyển hướng các URL thân thiện với người dùng
-RewriteRule ^news/([0-9]+)$ news.php?id=$1 [L]
-RewriteRule ^search$ controllers/HomeController.php?action=search [L]
+# Cấu hình để sử dụng URL đẹp
+RewriteBase /
+
+# Điều hướng các yêu cầu không phải file hay thư mục hiện có sang index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+# Tùy chỉnh thêm (nếu cần) cho các yêu cầu đặc biệt, ví dụ: bảo vệ thư mục admin
+RewriteRule ^admin/.*$ - [F]
