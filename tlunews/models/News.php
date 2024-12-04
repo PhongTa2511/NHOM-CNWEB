@@ -1,21 +1,38 @@
 <?php
-include_once 'db.php';
-
 class News {
-    private $db;
+    private $dbHost = 'localhost';
+    private $dbName = 'TINTUC';
+    private $dbUser = 'root';
+    private $dbPass = '';
 
-    public function __construct() {
-        $this->db = new Database();
+    private function connect() {
+        try {
+            $pdo = new PDO("mysql:host={$this->dbHost};dbname={$this->dbName};charset=utf8", $this->dbUser, $this->dbPass);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            return $pdo;
+        } catch (PDOException $e) {
+            die('Lỗi kết nối CSDL: ' . $e->getMessage());
+        }
     }
 
     public function getAllNews() {
-        $query = "SELECT * FROM news ORDER BY created_at DESC";
-        return $this->db->query($query);
+        $pdo = $this->connect();
+        $query = "SELECT news.*, categories.name AS category_name 
+                  FROM news 
+                  JOIN categories ON news.category_id = categories.id 
+                  ORDER BY news.created_at DESC";
+        return $pdo->query($query)->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getNewsById($id) {
-        $query = "SELECT * FROM news WHERE id = ?";
-        return $this->db->query($query, [$id])->fetch();
+        $pdo = $this->connect();
+        $query = "SELECT news.*, categories.name AS category_name 
+                  FROM news 
+                  JOIN categories ON news.category_id = categories.id 
+                  WHERE news.id = :id";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
 ?>
