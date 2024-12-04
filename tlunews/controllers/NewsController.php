@@ -36,12 +36,12 @@ class NewsController{
             $date = date('Y-m-d H:i:s');
             $date_s = (string)$date;
             $this->New->AddNews($title, $content, $imagePath1, $date_s, $cateID);
-            header("Location: index.php");
+            header("Location: index.php?url=Admin/dashboard");
         }
     }
     
     public function edit($id) {
-        require("../views/admin/news/edit.php");
+        require("./views/admin/news/edit.php");
     
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $title = $_POST['title'];
@@ -49,30 +49,26 @@ class NewsController{
             $categoryname = $_POST['category'];
     
             $cateID = $this->Cat->getCateID($categoryname);
-            $cateID = $cateID['id'] ?? null;
-    
-            $image_path = '';
-            if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
-                $target_dir = "../image/";
-                $image_path = $target_dir . basename($_FILES['image']['name']);
-                if (!move_uploaded_file($_FILES['image']['tmp_name'], $image_path)) {
+            $imagePath1 = '';
+            if (!empty($_FILES['image']['name'])) {
+                $targetDir = "./image/";
+                $imagePath1 = $targetDir . basename($_FILES['image']['name']);
+                if (!move_uploaded_file($_FILES['image']['tmp_name'], $imagePath1)) {
                     echo "Lỗi khi tải ảnh lên.";
                     exit;
                 }
-            } else {
-                $newsData = $this->New->getNewsById($id);
-                $image_path = $newsData['image']; // Giữ ảnh cũ
             }
     
             $date = date('Y-m-d H:i:s');
-            $this->New->updateNews($id, $title, $content, $image_path, $date, $cateID);
+            $date_s = (string)$date;
+            $this->New->updateNews($id, $title, $content, $imagePath1, $date_s, $cateID);
             header("Location: index.php?url=Admin/dashboard");
         }
     }
     
         public function delete($id){
             $New->DeleteNews($id);
-            header("Location: index.php");
+            header("Location: index.php?url=Admin/dashboard");
 
         }
         

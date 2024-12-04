@@ -30,7 +30,7 @@
             $smt->execute(['id' => $id]);
         }
         public function updateNews($id,$title,$content,$image,$date,$category_id){
-            $sql = 'update news set title = :title,content = :content,image = :image,create_at = :create_at,category_id = :category_id where id = :id';
+            $sql = 'update news set title = :title,content = :content,image = :image,created_at = :create_at,category_id = :category_id where id = :id';
             $stmt = $this->conn->prepare($sql);
             $stmt->execute(['title' => $title,'content'=>$content,'image' =>$image,'create_at' => $date,'category_id' =>$category_id,'id' => $id]);
         }
