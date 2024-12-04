@@ -1,22 +1,20 @@
 <?php
-class DatabaseConfig{
- const HOST = 'localhost:3306';
- const DB_NAME = 'tintuc';
- const USERNAME = 'root';
- const PASSWORD = '';
- public static function getConnection() {
- try {
- $dsn = 'mysql:host=' . self::HOST . ';dbname=' . 
-self::DB_NAME;
- $connection = new PDO($dsn, self::USERNAME, 
-self::PASSWORD);
- $connection->setAttribute(PDO::ATTR_ERRMODE, 
-PDO::ERRMODE_EXCEPTION);
- return $connection;
- } catch (PDOException $e) {
- echo "Kết nối cơ sở dữ liệu thất bại: " . $e->getMessage();
- exit;
- }
- }
- }
- ?>
+
+class DatabaseConfig {
+    private static $host = 'localhost:3306';
+    private static $dbname = 'tintuc';
+    private static $username = 'root';
+    private static $password = '';
+
+    public static function getConnection() {
+        try {
+            $conn = new PDO("mysql:host=" . self::$host . ";dbname=" . self::$dbname, self::$username, self::$password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            return $conn;
+        } catch (PDOException $e) {
+            die("Connection failed: " . $e->getMessage());
+        }
+    }
+}
+
+?>
