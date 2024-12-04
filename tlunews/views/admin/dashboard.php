@@ -1,20 +1,3 @@
-<?php
-session_start();
-
-// Kiểm tra xem admin đã đăng nhập chưa
-if (!isset($_SESSION['admin_id'])) {
-    header('Location: index.php?controller=admin&action=login');
-    exit();
-}
-
-// Xử lý đăng xuất khi người dùng nhấn "Logout"
-if (isset($_GET['action']) && $_GET['action'] == 'logout') {
-    session_destroy();
-    header('Location: index.php?controller=admin&action=login');
-    exit();
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,54 +7,109 @@ if (isset($_GET['action']) && $_GET['action'] == 'logout') {
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
+            padding: 0;
+            background-color: #fafafa; /* Nền sáng nhưng nhẹ nhàng */
         }
 
-        .dashboard-container {
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 30px;
             background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #3d3d3d; /* Màu xám đậm */
+            font-size: 28px;
             text-align: center;
+        }
+
+        p {
+            color: #666; /* Màu xám trung tính */
+            font-size: 16px;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+
+        table th, table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        table th {
+            background: #6c7a89; /* Màu xám ấm cho header */
+            color: white;
+        }
+
+        table tr:nth-child(even) {
+            background: #f5f5f5; /* Màu nền sáng cho các dòng chẵn */
+        }
+
+        table tr:nth-child(odd) {
+            background: #ffffff; /* Màu nền trắng cho các dòng lẻ */
         }
 
         a {
             text-decoration: none;
-            color: #007BFF;
-            font-weight: bold;
+            color: #2980b9; /* Màu xanh dịu dàng */
         }
 
         a:hover {
-            color: #0056b3;
+            color: #1abc9c; /* Màu xanh lá nhẹ khi hover */
         }
 
-        .logout-button {
+        .logout-btn {
             display: inline-block;
-            margin-top: 10px;
-            padding: 10px 20px;
-            background-color: #007BFF;
+            padding: 12px 25px;
+            background: #e67e22; /* Màu cam ấm cho nút đăng xuất */
             color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 16px;
+            margin-top: 30px;
+            width: 100%;
         }
 
-        .logout-button:hover {
-            background-color: #0056b3;
+        .logout-btn:hover {
+            background: #d35400; /* Màu cam đậm khi hover */
         }
     </style>
 </head>
 <body>
-    <div class="dashboard-container">
-        <h2>Welcome, <?php echo isset($_SESSION['admin_username']) ? htmlspecialchars($_SESSION['admin_username']) : 'Admin'; ?>!</h2>
-        <p>You are logged in as an admin.</p>
-        <a href="?action=logout" class="logout-button">Logout</a>
+    <div class="container">
+        <h1>Chào mừng, <?php echo htmlspecialchars($_SESSION['admin_username']); ?>!</h1>
+        <p>Bạn đang ở Dashboard Admin.</p>
+        <a class="logout-btn" href="index.php?controller=admin&action=logout">Đăng xuất</a>
+
+        <h2 style="text-align: center; color: #3d3d3d;">Danh sách tài khoản Admin</h2>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Tên đăng nhập</th>
+                <th>Hành động</th>
+            </tr>
+            <?php foreach ($admins as $admin): ?>
+                <tr>
+                    <td><?php echo $admin['id']; ?></td>
+                    <td><?php echo $admin['username']; ?></td>
+                    <td>
+                        <a href="index.php?controller=admin&action=deleteAdmin&id=<?php echo $admin['id']; ?>">Xóa</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
     </div>
 </body>
 </html>

@@ -14,16 +14,16 @@
         }
 
         body {
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            background: linear-gradient(135deg, #2c3e50, #34495e); /* Tông màu tối, lạnh và ấm */
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #333;
+            color: #ecf0f1; /* Màu trắng sáng cho chữ */
         }
 
         .login-container {
-            background: #fff;
+            background: #2c3e50; /* Màu xám tối cho nền */
             border-radius: 12px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             width: 350px;
@@ -35,13 +35,13 @@
             font-size: 24px;
             font-weight: bold;
             margin-bottom: 20px;
-            color: #333;
+            color: #ecf0f1; /* Màu sáng cho tiêu đề */
         }
 
         .login-container label {
             font-size: 14px;
             font-weight: 600;
-            color: #555;
+            color: #ecf0f1;
             display: block;
             text-align: left;
             margin-bottom: 5px;
@@ -51,21 +51,23 @@
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
-            border: 1px solid #ddd;
+            border: 1px solid #34495e; /* Màu xám tối cho viền */
             border-radius: 8px;
             font-size: 14px;
+            background: #34495e; /* Nền xám đậm cho input */
+            color: #ecf0f1; /* Chữ sáng */
         }
 
         .login-container input:focus {
             outline: none;
-            border-color: #6a11cb;
-            box-shadow: 0 0 8px rgba(106, 17, 203, 0.2);
+            border-color: #e67e22; /* Màu cam khi focus */
+            box-shadow: 0 0 8px rgba(230, 126, 34, 0.2);
         }
 
         .login-container button {
             width: 100%;
             padding: 12px;
-            background: #6a11cb;
+            background: #e67e22; /* Màu cam ấm cho nút */
             color: #fff;
             font-size: 16px;
             font-weight: bold;
@@ -76,13 +78,13 @@
         }
 
         .login-container button:hover {
-            background: #2575fc;
+            background: #d35400; /* Màu cam đậm hơn khi hover */
             transform: scale(1.05);
         }
 
         .login-container .forgot-password {
             font-size: 12px;
-            color: #6a11cb;
+            color: #e67e22; /* Màu cam cho forgot-password */
             text-decoration: none;
             display: block;
             margin-top: 10px;
