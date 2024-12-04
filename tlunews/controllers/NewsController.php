@@ -67,7 +67,7 @@ class NewsController{
     }
     
         public function delete($id){
-            $New->DeleteNews($id);
+            $this->New->DeleteNews($id);
             header("Location: index.php?url=Admin/dashboard");
 
         }

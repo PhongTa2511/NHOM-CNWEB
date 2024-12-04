@@ -28,8 +28,8 @@
                     <td><?= $row['category'] ?></td>
                     <td><?= $row['created_at'] ?></td>
                     <td>
-                        <a href="index.php?url = News/edit/<?= $row['id'] ?>" class="btn btn-warning btn-sm">Sửa</a>
-                        <a href="index.php?url = News/delete/<?= $row['id'] ?>" class="btn btn-danger btn-sm">Xóa</a>
+                        <a href="index.php?url=News/edit/<?= $row['id'] ?>" class="btn btn-warning btn-sm">Sửa</a>
+                        <a href="index.php?url=News/delete/<?= $row['id'] ?>" class="btn btn-danger btn-sm">Xóa</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
