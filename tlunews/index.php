@@ -1,12 +1,25 @@
 <?php
-// Index page hiển thị danh sách tin tức
 require_once 'controllers/HomeController.php';
+require_once 'controllers/NewsController.php';
 
-$controller = new HomeController();
+// Điều hướng yêu cầu
+$page = $_GET['page'] ?? 'home';
+$action = $_GET['action'] ?? 'index';
 
-if (isset($_GET['search'])) {
-    $controller->search(); // Xử lý tìm kiếm
-} else {
-    $controller->index(); // Hiển thị tin tức
+switch ($page) {
+    case 'news':
+        $controller = new NewsController();
+        if ($action === 'add' || $action === 'edit') {
+            die('Không được phép truy cập trực tiếp vào quản trị.');
+        } elseif ($action === 'detail') {
+            $controller->detail();
+        } else {
+            $controller->index();
+        }
+        break;
+    default:
+        $controller = new HomeController();
+        $controller->index();
+        break;
 }
 ?>
